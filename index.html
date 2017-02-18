@@ -1,0 +1,105 @@
+<html ng-app='PizzaApp'>
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/PizzaApp/mod.css" type="text/css" />
+    <meta charset="UTF-8">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div ng-controller='PizzaController'>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 align="center">Pizza App</h1>
+                </div>
+                <div class="panel-body">
+
+                    Crust:
+                    <select ng-model="Crust" ng-options="c.name for c in Crusts"></select> 
+                    Size:
+                    <select ng-model="Size" ng-options="s.name for s in Sizes"></select>
+                </div>
+                <div class="panel-body separator-above" ng-show="Size != Sizes[0]">
+                    Cheese:
+                    <select ng-model="Cheese" ng-options="c.name for c in Cheeses"></select> Sauce:
+                    <select ng-model="Sauce" ng-options="s.name for s in Sauces"></select>
+                </div>
+                <div class="panel separator-above" ng-show="Sauce != Sauces[0]">
+                    Toppings </br>
+
+
+                    <label ng-repeat="Topping in Toppings">
+                        <input type="button" ng-click="update(Topping)" value="{{Topping.name}}">
+                    </label>
+
+
+                </div>
+                <div class="panel separator-above" ng-show="Size != Sizes[0] && Sauce != Sauces[0]">
+                    <h4>Preview your Pizza</h4>
+                    Crust: {{Crust.name}}</br>
+                    Size: {{Size.name}}</br>
+                    Cheese: {{Cheese.name}}</br>
+                    Sauce: {{Sauce.name}}</br>
+                    <li ng-repeat="Topping in SelectedToppings track by $index" >
+                        {{Topping.name}} <input type="button" ng-click="remove()" value="remove">
+                    </li>
+                </div> 
+            </div>
+            <input type="button" ng-click="updatePizza()" value="Add Pizza">
+            
+            
+            <h3> {{pizza.name}}</h3> </br>
+            {{pizza.crust.name}}</br>
+            {{pizza.size.name}}</br>
+            {{pizza.cheese.name}}</br>
+            {{pizza.sauce.name}}</br>
+            <ul>
+                <li ng-repeat="topping in pizza.toppings track by $index" >
+                    {{topping.name}}
+                </li>
+            </ul>
+            
+
+                <table align="center">
+                    <tr>
+                        <th>
+                            <h3>
+                                Previous pizzas 
+                            </h3>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="p in BuiltPizza">
+                        <td class="separator-above" >
+                            <input type="button" ng-click="select()" value="Select"></br>
+                            {{p.crust.name}}</br>
+                            {{p.size.name}}</br>
+                            {{p.cheese.name}}</br>
+                            {{p.sauce.name}}</br>
+                            <li ng-repeat="t in p.toppings">
+                                {{t.name}}
+                            </li>
+                        </td>
+                    </tr>
+                </table>
+            <input type="button" ng-click="clean()" value="Delete All">
+        </div>
+        
+        
+        
+
+    </div>
+
+    
+    <script type="text/javascript" src="https://code.angularjs.org/1.6.2/angular.js"></script>
+    <script type="text/javascript" src="/PizzaApp/app.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.angularjs.org/1.6.1/angular-animate.min.js"></script>
+</body>
+
+</html>
